@@ -1,0 +1,38 @@
+body,
+html {
+  height: 100%;
+}
+
+.GnG_logo {
+  position: absolute;
+  top: 20px;
+  left: 50px;
+  width: 100px;
+  height: 100px;
+  background-color: #4577fa;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 100px;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.nav-link {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.main {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(../images/sea.jpg);
+  background-repeat: no-repeat;
+  opacity: 100%;
+  background-color: #d7e3fc;
+}
+
+.GnG_logo img {
+  width: 100px;
+}

@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h2>에러가 발생했습니다.</h2>
+	<h2>에러가 발생함.</h2>
 	<a href="${pageContext.request.contextPath}/member?action=signIn">첫 화면으로 이동</a>
 </body>
 </html>

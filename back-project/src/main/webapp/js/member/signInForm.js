@@ -18,10 +18,10 @@ loginBtn.addEventListener('click', function (){
     .then((response) => response.json())
     .then((data) => {
 		if (data.result) {
-			alert("성공했습니다.");
+			alert("로그인 성공!");
 			window.location.href = "http://localhost:8080/gng/member";	
 		} else {
-			alert("실패했습니다.");
+			alert("로그인 실패했습니다.");
 		}
 	});
 	

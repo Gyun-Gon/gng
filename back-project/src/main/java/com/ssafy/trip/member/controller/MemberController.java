@@ -49,6 +49,9 @@ public class MemberController extends HttpServlet {
 				break;
 			case "signOut" :
 				signOut(req,resp);
+				break;
+			case "signInCheck" :
+				signInCheck(req,resp);
 			}		
 		
 		} catch(Exception e) {
@@ -56,6 +59,42 @@ public class MemberController extends HttpServlet {
 			req.getRequestDispatcher("/error.jsp").forward(req, resp);
 		}
 		
+	}
+
+	private void signInCheck(HttpServletRequest req, HttpServletResponse resp) throws Exception {
+		PrintWriter out = null;
+	    JSONObject result = null;
+	    String jsonString = null;
+	    StringBuilder jsonBuilder = null;
+	    JSONObject jsonObject = null;
+	    BufferedReader reader = null;
+	    
+	    resp.setContentType("application/x-json; charset=UTF-8");
+	    out = resp.getWriter();
+	    result = new JSONObject();
+		
+	    reader = req.getReader();
+	    jsonBuilder = new StringBuilder();
+	    String line;
+	    while ((line= reader.readLine()) != null) {
+	    	jsonBuilder.append(line);
+	    }
+	    jsonString = jsonBuilder.toString();
+	    jsonObject = new JSONObject(jsonString);
+	    
+	    // 사용자가 입력한 id값 가져오기
+	    String userId = jsonObject.getString("userId");	    
+	    boolean memberExist = false;
+	    try {
+			memberExist = memberService.loginCheckMember(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			memberExist = false;
+		}
+	    
+	    result.put("memberExist", memberExist);
+	    out.print(result.toString());
+	    
 	}
 
 	private void signOut(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -73,10 +112,13 @@ public class MemberController extends HttpServlet {
 	    JSONObject jsonObject = null;
 	    BufferedReader reader = null;
 		
+	    // 처리해서 front에 JSON형식으로 보내주겠다. 이전처럼 jsp로 페이지 이동하지 않고.
 		resp.setContentType("application/x-json; charset=UTF-8");
         out = resp.getWriter();
-        result = new JSONObject();
+        result = new JSONObject(); // Result라는 JSON객체로 보내준다.
 
+        // front에서 온 요청 (fetch) 처리 작업
+        // JSON 문자열로 왔으니까 JSON 문자열을 읽어들이는 작업
         reader = req.getReader();
         jsonBuilder = new StringBuilder();
         String line;
@@ -84,8 +126,11 @@ public class MemberController extends HttpServlet {
             jsonBuilder.append(line);
         }
         jsonString = jsonBuilder.toString();
+        // JSON 문자열에 있는 값들을 써야하므로 다시 JSON 객체로 변환
+        System.out.println(jsonString);
         jsonObject = new JSONObject(jsonString);
 
+        // 내가 필요한 id, password값 JSON 객체에서 가져오기
         String userId = jsonObject.getString("username");
         String userPassword = jsonObject.getString("password");		
 		
@@ -93,15 +138,15 @@ public class MemberController extends HttpServlet {
 		member.setUserId(userId);
 		member.setUserPassword(userPassword);
 		
-		Member resultMember = memberService.loginMember(member);
+		Member resultMember = memberService.loginMember(member); // 로그인 결과 확인
 		if (resultMember != null) {
 			// 내 세션 방 가져오기
 			HttpSession httpsession = req.getSession();
 			// 세션 방에다가 내 회원정보 저장
 			httpsession.setAttribute("resultMember", resultMember);
 			
-			result.put("result", true);
-            out.print(result.toString());
+			result.put("result", true); // 로그인 결과를 JSON 객체에 "result" 키값으로 담아서 보낼거임. 
+            out.print(result.toString()); // JSON 문자열로 보내야하므로 Result JSON객체 -> JSON 문자열
 		} else {			
 			result.put("result", false);
             out.print(result.toString());
@@ -118,14 +163,61 @@ public class MemberController extends HttpServlet {
 	}
 
 	private void signUp(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		String userId = req.getParameter("userId");
-		String userName = req.getParameter("userName");
-		String userPassword = req.getParameter("userPassword");
-		Date joinDate = new Date(System.currentTimeMillis());
-		Member member = new Member(userId,userName,userPassword,"","",joinDate);
-		int joinResult = memberService.joinMember(member);
+//		String userId = req.getParameter("userId");
+//		String userName = req.getParameter("userName");
+//		String userPassword = req.getParameter("userPassword");
+//		String userEmail = req.getParameter("userEmail");
+//		Date joinDate = new Date(System.currentTimeMillis());
+//		Member member = new Member(userId,userName,userPassword,"",userEmail,joinDate);
+//		int joinResult = memberService.joinMember(member);
+//		
+//		resp.sendRedirect(req.getContextPath() + "/member?action=signInForm");
 		
-		resp.sendRedirect(req.getContextPath() + "/member?action=signInForm");		
+		PrintWriter out = null;
+	    JSONObject result = null;
+	    String jsonString = null;
+	    StringBuilder jsonBuilder = null;
+	    JSONObject jsonObject = null;
+	    BufferedReader reader = null;
+		
+	    // 처리해서 front에 JSON형식으로 보내주겠다. 이전처럼 jsp로 페이지 이동하지 않고.
+		resp.setContentType("application/x-json; charset=UTF-8");
+        out = resp.getWriter();
+        result = new JSONObject(); // Result라는 JSON객체로 보내준다.
+
+        // front에서 온 요청 (fetch) 처리 작업
+        // JSON 문자열로 왔으니까 JSON 문자열을 읽어들이는 작업
+        reader = req.getReader();
+        jsonBuilder = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            jsonBuilder.append(line);
+        }
+        jsonString = jsonBuilder.toString().trim();
+        // JSON 문자열에 있는 값들을 써야하므로 다시 JSON 객체로 변환
+        System.out.println(jsonString);
+        jsonObject = new JSONObject(jsonString);
+
+        // 내가 필요한 id, password값 JSON 객체에서 가져오기
+        String userId = jsonObject.getString("userId");
+        String userName = jsonObject.getString("userName");
+        String userPassword = jsonObject.getString("userPassword");
+        String userEmail = jsonObject.getString("userEmail");	
+		
+		Member member = new Member();
+		member.setUserId(userId);
+		member.setUserName(userName);
+		member.setUserPassword(userPassword);
+		member.setUserEmail(userEmail);
+		
+		try {
+			memberService.joinMember(member);
+			result.put("result", true);
+		} catch(Exception e) {
+			e.printStackTrace();
+			result.put("result", false);			
+		}
+		out.print(result.toString());
 	}
 
 	private void index(HttpServletRequest req, HttpServletResponse resp) throws Exception {

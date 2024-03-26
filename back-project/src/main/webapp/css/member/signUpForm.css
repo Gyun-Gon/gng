@@ -44,12 +44,21 @@ main {
 	gap: 20px;
 }
 
+#userid_check_label {
+	width: 55px;
+}
+
+#userpwd_check_label {
+	width : 110px;
+}
+
 #signup_form input {
 	margin: 0 auto;
 	width: 350px;
 	height: 40px;
 	border: 0;
 	border-radius: 10px;
+	padding-left: 8px;
 }
 
 .signup_form_button {
@@ -81,4 +90,14 @@ main {
 	line-height: 100px;
 	z-index: 1;
 	cursor: pointer;
+}
+
+.available {
+    color: green;
+    font-weight: bold;
+}
+
+.not-available {
+    color: red;
+    font-weight: bold;
 }

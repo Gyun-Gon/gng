@@ -26,5 +26,9 @@ public class MemberServiceImpl implements MemberService {
 	public Member loginMember(Member member) throws Exception {
 		return memberDao.selectMemberByUserIdPassword(member);
 	}
+	@Override
+	public boolean loginCheckMember(String userId) throws Exception {
+		return memberDao.selectMemberByUserId(userId);
+	}
 
 }

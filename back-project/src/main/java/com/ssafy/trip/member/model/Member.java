@@ -6,18 +6,16 @@ public class Member {
 	private String userId;
 	private String userName;
 	private String userPassword;
-	private String emailId;
-	private String emailDomain;
+	private String userEmail;
 	private Date joinDate;
 	
 	public Member() {}
-	public Member(String userId, String userName, String userPassword, String emailId, String emailDomain,
+	public Member(String userId, String userName, String userPassword, String userEmail,
 			Date joinDate) {
 		this.userId = userId;
 		this.userName = userName;
 		this.userPassword = userPassword;
-		this.emailId = emailId;
-		this.emailDomain = emailDomain;
+		this.userEmail = userEmail;
 		this.joinDate = joinDate;
 	}
 	
@@ -39,17 +37,11 @@ public class Member {
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
-	public String getEmailId() {
-		return emailId;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
-	}
-	public String getEmailDomain() {
-		return emailDomain;
-	}
-	public void setEmailDomain(String emailDomain) {
-		this.emailDomain = emailDomain;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 	public Date getJoinDate() {
 		return joinDate;
@@ -57,11 +49,10 @@ public class Member {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	
 	@Override
 	public String toString() {
-		return "Member [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + ", emailId="
-				+ emailId + ", emailDomain=" + emailDomain + ", joinDate=" + joinDate + "]";
+		return "Member [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + ", userEmail="
+				+ userEmail + ", joinDate=" + joinDate + "]";
 	}
 	
 }

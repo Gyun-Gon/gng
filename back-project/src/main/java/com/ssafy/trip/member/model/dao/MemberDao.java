@@ -11,4 +11,7 @@ public interface MemberDao {
 	
 	// ReadOne (로그인)
 	Member selectMemberByUserIdPassword(Member member) throws SQLException;
+	
+	// 아이디 중복 검사
+	boolean selectMemberByUserId (String userId) throws SQLException;
 }

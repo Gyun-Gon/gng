@@ -27,7 +27,7 @@ public class MemberDaoImpl implements MemberDao {
 			conn = DBUtil.getInstance().getConnection();
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into members\n");
-			sql.append("(user_id, user_name, user_password, join_date)\n");
+			sql.append("(user_id, user_name, user_password, user_email)\n");
 			sql.append("values(?,?,?,?)\n");
 			
 			pstmt = conn.prepareStatement(sql.toString());
@@ -35,7 +35,7 @@ public class MemberDaoImpl implements MemberDao {
 			pstmt.setString(++index, member.getUserId());
 			pstmt.setString(++index, member.getUserName());
 			pstmt.setString(++index, member.getUserPassword());
-			pstmt.setDate(++index, member.getJoinDate());
+			pstmt.setString(++index, member.getUserEmail());
 			
 			return pstmt.executeUpdate();			
 			
@@ -68,13 +68,41 @@ public class MemberDaoImpl implements MemberDao {
 				resultMember.setUserId(rs.getString("user_id"));
 				resultMember.setUserName(rs.getString("user_name"));
 				resultMember.setUserPassword(rs.getString("user_password"));
-				resultMember.setEmailId(rs.getString("email_id"));
-				resultMember.setEmailDomain(rs.getString("email_domain"));
+				resultMember.setUserEmail(rs.getString("user_email"));
 				resultMember.setJoinDate(rs.getDate("join_date"));
 				return resultMember;
 			}
 			
 			return null;
+			
+		} finally {
+			DBUtil.getInstance().close(pstmt,conn);
+		}
+	}
+	
+	@Override
+	public boolean selectMemberByUserId(String userId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			conn = DBUtil.getInstance().getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("select *\n");
+			sql.append("from members\n");
+			sql.append("where user_id = ?\n");
+			
+			pstmt = conn.prepareStatement(sql.toString());			
+			int index = 0;
+			pstmt.setString(++index, userId);
+			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return true;
+			}
+			
+			return false;
 			
 		} finally {
 			DBUtil.getInstance().close(pstmt,conn);

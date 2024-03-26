@@ -54,6 +54,11 @@ signupBtn.addEventListener('click', function() {
 	let userpwdvalue = document.getElementById("userpwd").value;
 	let useremailvalue = document.getElementById("useremail").value;
 	
+	let userpwdcheckvalue = document.getElementById("userpwd_check").value;
+	if (userpwdvalue != userpwdcheckvalue) {
+		return;
+	}
+	
 	let config = {
         method: 'POST',
         headers: {
@@ -74,7 +79,7 @@ signupBtn.addEventListener('click', function() {
 			alert("회원가입 성공!");
 			window.location.href = "http://localhost:8080/gng/member";	
 		} else {
-			alert("회원가입 할 수 없습니다.");
+			alert("회원가입할 수 없습니다.");
 		}
 	});
 	    

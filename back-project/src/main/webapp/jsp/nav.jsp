@@ -17,7 +17,7 @@
 					<li class="nav-item m-1"><a class="nav-link"
 						href="./html/review.html">장소 리뷰</a></li>
 					<li class="nav-item m-1"><a class="nav-link"
-						href="./html/community.html">커뮤니티</a></li>
+						href="${pageContext.request.contextPath}/board?action=getList&pageNo=1">커뮤니티</a></li>
 					
 					<c:choose>
 						<c:when test="${not empty sessionScope.resultMember}">

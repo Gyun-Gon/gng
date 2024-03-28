@@ -67,7 +67,7 @@
 							href="${pageContext.request.contextPath}/member?action=signInForm">
 							<button id="cancel_btn" type="button">취소</button>
 						</a>
-						<button id="signup_btn">회원가입</button>
+						<button id="signup_btn" type="button">회원가입</button>
 					</div>
 				</form>
 			</div>

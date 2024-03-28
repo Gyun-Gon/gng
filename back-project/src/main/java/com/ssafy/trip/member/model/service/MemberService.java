@@ -11,4 +11,8 @@ public interface MemberService {
 	Member loginMember (Member member) throws Exception;
 	
 	boolean loginCheckMember(String userId) throws Exception;
+	
+	int editMember(Member member) throws Exception;
+	
+	int removeMember(String userId) throws Exception;
 }

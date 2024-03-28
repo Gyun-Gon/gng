@@ -72,6 +72,7 @@ public class BoardController extends HttpServlet{
 			case "editForm" :
 				editForm(req,resp);
 				break;
+				
 			}		
 			
 			

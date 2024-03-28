@@ -14,4 +14,10 @@ public interface MemberDao {
 	
 	// 아이디 중복 검사
 	boolean selectMemberByUserId (String userId) throws SQLException;
+	
+	// 회원 정보 수정
+	int updateMember(Member member) throws SQLException;
+	
+	// 회원 삭제
+	int deleteMember(String userId) throws SQLException;
 }

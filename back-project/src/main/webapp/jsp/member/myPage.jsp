@@ -15,84 +15,29 @@
     />
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/member/myPage.css" />
   </head>
-
   <body>
-    <header>
-      <div id="GnG_logo" class="GnG_logo"><img src="${pageContext.request.contextPath}/image/화이트변경.png" alt="" /></div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container p-2">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item m-1">
-                <a class="nav-link" aria-current="page" href="tour.html">관광지 정보</a>
-              </li>
-              <li class="nav-item m-1">
-                <a class="nav-link" href="recommend.html">지역별 추천 코스</a>
-              </li>
-              <li class="nav-item m-1">
-                <a class="nav-link" href="review.html">장소 리뷰</a>
-              </li>
-              <li class="nav-item m-1">
-                <a class="nav-link" href="community.html">커뮤니티</a>
-              </li>
-              <li class="nav-item m-1">
-                <a class="nav-link" href="mypage.html">마이 페이지</a>
-              </li>
-              <li class="nav-item m-1">
-                <a class="nav-link" href="signin.html">로그아웃</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <%@ include file="/jsp/nav.jsp"%>
     <main class="main">
       <form id="mypage_form" action="POST">
         <div class="mypage_form_input">
-          <label for="username">이름</label>
-          <input type="text" id="username" name="username" value="이경곤" />
-          <button id="namechange_btn" type="submit">변경</button>
+          <label for="userName">이름</label>
+          <input type="text" id="userName" name="userName" value="${sessionScope.resultMember.userName}" />
         </div>
         <div class="mypage_form_input">
-          <label for="userid">아이디</label>
-          <input type="text" id="userid" name="userid" value="leeggon" />
-          <button id="idchange_btn" type="submit">변경</button>
+          <label for="userId">아이디</label>
+          <input type="text" id="userId" name="userid" value="${sessionScope.resultMember.userId}" readonly/>
         </div>
         <div class="mypage_form_input">
-          <label for="userpwd">비밀번호</label>
-          <input type="password" id="userpwd" name="userpwd" value="password" />
-          <span></span>
+          <label for="userPassword">비밀번호</label>
+          <input type="password" id="userPassword" name="userPassword" value="${sessionScope.resultMember.userPassword}" />
         </div>
         <div class="mypage_form_input">
-          <label for="userpwd_check">비밀번호 확인</label>
-          <input type="password" id="userpwd_check" name="userpwd_check" />
-          <button id="pwdchange_btn" type="submit">변경</button>
-        </div>
-        <div class="mypage_form_input">
-          <label for="userbirth">생년월일</label>
-          <input
-            type="text"
-            id="userbirth"
-            name="userbirth"
-            value="1999.12.20"
-            onfocus="(this.type='date')"
-            onblur="(this.type='text')"
-          />
-          <button id="birthchange_btn" type="submit">변경</button>
+          <label for="userEmail">이메일</label>
+          <input type="email" id="userEmail" name="userEmail" value="${sessionScope.resultMember.userEmail}" />
         </div>
         <div class="mypage_form_button">
-          <button id="signout_btn" type="submit">회원탈퇴</button>
+        <button id="edit_btn" type="button">변경하기</button>
+          <button id="remove_btn" type="button">회원탈퇴</button>
         </div>
       </form>
     </main>
@@ -103,6 +48,67 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-	<script src="${pageContext.request.contextPath}/js/member/myPage.js"></script>
+	<%-- <script src="${pageContext.request.contextPath}/js/member/myPage.js"></script> --%>
+	<script>
+	let editBtn = document.getElementById("edit_btn");
+	editBtn.addEventListener('click', function (){
+		let userId = document.getElementById('userId').value;
+		let userName = document.getElementById('userName').value;
+	    let userPassword = document.getElementById('userPassword').value;
+	    let userEmail = document.getElementById('userEmail').value;
+	    
+	    let config = {
+	        method: 'POST',
+	        headers: {
+	            "Content-Type": "application/json",
+	        },
+	        body: JSON.stringify({
+	        	userId: userId,
+	            userName: userName,
+	            userPassword: userPassword,
+	            userEmail: userEmail
+	        })
+	    };
+	    
+	    fetch("http://localhost:8080/gng/member?action=edit", config)
+	    .then((response) => response.json())
+	    .then((data) => {
+			if (data.result) {
+				alert("회원정보 수정이 완료되었습니다.");
+				window.location.href = "http://localhost:8080/gng/member";	
+			} else {
+				alert("수정할 수 없습니다.");
+			}
+		});
+		
+	});
+	
+	let removeBtn = document.getElementById("remove_btn");
+	removeBtn.addEventListener('click', function (){
+		let userId = document.getElementById('userId').value;
+	    
+	    let config = {
+	        method: 'POST',
+	        headers: {
+	            "Content-Type": "application/json",
+	        },
+	        body: JSON.stringify({
+	        	userId: userId
+	        })
+	    };
+	    
+	    fetch("http://localhost:8080/gng/member?action=remove", config)
+	    .then((response) => response.json())
+	    .then((data) => {
+			if (data.result) {
+				alert("회원정보가 삭제되었습니다.");
+				window.location.href = "http://localhost:8080/gng/member";	
+			} else {
+				alert("삭제할 수 없습니다.");
+			}
+		});
+		
+	});
+	</script>
   </body>
 </html>

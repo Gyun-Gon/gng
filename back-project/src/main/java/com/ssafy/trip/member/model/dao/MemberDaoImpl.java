@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.ssafy.trip.member.model.Member;
-import com.ssafy.trip.member.util.DBUtil;
+import com.ssafy.trip.util.DBUtil;
 
 public class MemberDaoImpl implements MemberDao {
 	

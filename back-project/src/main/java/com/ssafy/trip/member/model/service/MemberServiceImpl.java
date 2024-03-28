@@ -30,5 +30,13 @@ public class MemberServiceImpl implements MemberService {
 	public boolean loginCheckMember(String userId) throws Exception {
 		return memberDao.selectMemberByUserId(userId);
 	}
+	@Override
+	public int editMember(Member member) throws Exception {
+		return memberDao.updateMember(member);
+	}
+	@Override
+	public int removeMember(String userId) throws Exception {
+		return memberDao.deleteMember(userId);
+	}
 
 }

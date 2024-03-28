@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.ssafy.trip.board.model.Board;
 import com.ssafy.trip.member.model.Member;
 import com.ssafy.trip.util.DBUtil;
 
@@ -106,6 +107,50 @@ public class MemberDaoImpl implements MemberDao {
 			
 		} finally {
 			DBUtil.getInstance().close(pstmt,conn);
+		}
+	}
+	@Override
+	public int updateMember(Member member) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBUtil.getInstance().getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("update members \n");
+			sql.append("set user_name = ?, user_password = ?, user_email = ? \n");
+			sql.append("where user_id = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			int index = 0;
+			pstmt.setString(++index, member.getUserName());
+			pstmt.setString(++index, member.getUserPassword());
+			pstmt.setString(++index, member.getUserEmail());
+			pstmt.setString(++index, member.getUserId());
+			
+			return pstmt.executeUpdate();
+			
+		} finally {
+			DBUtil.getInstance().close(pstmt, conn);
+		}
+	}
+	@Override
+	public int deleteMember(String userId) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DBUtil.getInstance().getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append("delete from members \n");
+			sql.append("where user_id = ? \n");
+			pstmt = conn.prepareStatement(sql.toString());
+			
+			int index = 0;
+			pstmt.setString(++index, userId);
+			
+			return pstmt.executeUpdate();
+			
+		} finally {
+			DBUtil.getInstance().close(pstmt, conn);
 		}
 	}
 

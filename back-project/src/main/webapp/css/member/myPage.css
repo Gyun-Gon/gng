@@ -69,19 +69,7 @@ html {
   height: 40px;
 }
 
-#namechange_btn,
-#idchange_btn,
-#pwdchange_btn,
-#birthchange_btn {
-  background-color: #abc4ff;
-  border: 0;
-  border-radius: 10px;
-  width: 55px;
-  height: 40px;
-  margin: 0 auto;
-}
-
-#signout_btn {
+#remove_btn {
   display: block;
   margin: 0 auto;
   background-color: #abc4ff;
@@ -91,4 +79,34 @@ html {
   height: 50px;
   margin: 0 auto;
   margin-top: 100px;
+}
+
+#edit_btn {
+  display: block;
+  margin: 0 auto;
+  background-color: #abc4ff;
+  border: 0;
+  border-radius: 10px;
+  width: 150px;
+  height: 50px;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+#login_user_name {
+	height: 29px;
+	line-height: 29px;
+	margin: 0;
+	align-self: center;
+}
+
+#login_user_name span {
+	color: #4577fa;
+	font-weight: bold;
+}
+
+.mypage_form_button {
+	display: flex;
+	width: 400px;
+	margin: 0 auto;
 }

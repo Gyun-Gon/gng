@@ -11,9 +11,9 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item m-1"><a class="nav-link"
-						aria-current="page" href="./html/tour.html">관광지 정보</a></li>
+						aria-current="page" href="${pageContext.request.contextPath}/tour">관광지 정보</a></li>
 					<li class="nav-item m-1"><a class="nav-link"
-						href="./html/recommend.html">지역별 추천 코스</a></li>
+						href="${pageContext.request.contextPath}/tour">지역별 추천 코스</a></li>
 					<li class="nav-item m-1"><a class="nav-link"
 						href="./html/review.html">장소 리뷰</a></li>
 					<li class="nav-item m-1"><a class="nav-link"
@@ -22,7 +22,7 @@
 					<c:choose>
 						<c:when test="${not empty sessionScope.resultMember}">
 							<li class="nav-item m-1"><a class="nav-link"
-								href="./html/mypage.html">마이 페이지</a></li>
+								href="${pageContext.request.contextPath}/member?action=myPage">마이 페이지</a></li>
 							<li class="nav-item m-1"  id="login_user_name"><span>${sessionScope.resultMember.userName}님</span></li>
 							<li class="nav-item m-1">
 								<a class="nav-link"	href="${pageContext.request.contextPath}/member?action=signOut">로그아웃</a>

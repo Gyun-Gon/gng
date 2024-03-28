@@ -19,7 +19,7 @@ let mapCenterY;
 // 로고 버튼 - 메인으로 이동
 document.getElementById("GnG_logo").addEventListener("click", function() {
 	console.log(1);
-	window.location.href = "http://localhost:8080/gng/tour";
+	window.location.href = "/gng/tour";
 });
 let positions = [];
 let contentTypeId;

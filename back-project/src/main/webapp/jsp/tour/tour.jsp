@@ -100,7 +100,6 @@
 		crossorigin="anonymous"></script>
 	<script type="text/javascript"
 		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=04415231ee1856321fd1042a5a42ef5c&libraries=services,clusterer,drawing"></script>
-	<script src="../js/tour.js"></script>
 
 </body>
 </html>

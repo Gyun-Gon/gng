@@ -11,9 +11,9 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto">
 					<li class="nav-item m-1"><a class="nav-link"
-						aria-current="page" href="${pageContext.request.contextPath}/tour">관광지 정보</a></li>
+						aria-current="page" href="${pageContext.request.contextPath}/tour?action=tour">관광지 정보</a></li>
 					<li class="nav-item m-1"><a class="nav-link"
-						href="${pageContext.request.contextPath}/tour">지역별 추천 코스</a></li>
+						href="${pageContext.request.contextPath}/tour?action=recommend">지역별 추천 코스</a></li>
 					<li class="nav-item m-1"><a class="nav-link"
 						href="./html/review.html">장소 리뷰</a></li>
 					<li class="nav-item m-1"><a class="nav-link"

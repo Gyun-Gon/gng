@@ -38,6 +38,12 @@ public class TourController extends HttpServlet {
 			}
 
 			switch (action) {
+			case "tour":
+				locateTour(req,resp);
+				break;
+			case "recommend":
+				locateRecommend(req,resp);
+				break;
 			case "search":
 				search(req, resp);
 				break;
@@ -53,6 +59,15 @@ public class TourController extends HttpServlet {
 			req.getRequestDispatcher("/error.jsp").forward(req, resp);
 		}
 
+	}
+
+	private void locateRecommend(HttpServletRequest req, HttpServletResponse resp)throws Exception {
+		req.getRequestDispatcher("/jsp/tour/recommend.jsp").forward(req, resp);
+		
+	}
+
+	private void locateTour(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+		req.getRequestDispatcher("/jsp/tour/tour.jsp").forward(req, resp);
 	}
 
 	private void searchRecommenCourse(HttpServletRequest req, HttpServletResponse resp) throws Exception {

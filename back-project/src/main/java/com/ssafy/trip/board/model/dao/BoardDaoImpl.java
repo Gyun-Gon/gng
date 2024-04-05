@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.board.model.Badword;
 import com.ssafy.trip.board.model.Board;
 import com.ssafy.trip.board.model.Comment;
 import com.ssafy.trip.util.DBUtil;
@@ -100,6 +101,7 @@ public class BoardDaoImpl implements BoardDao {
 			DBUtil.getInstance().close(pstmt, conn);
 		}
 	}
+	
 	
 	@Override
 	public int getTotalBoardCount(Map<String, Object> map) throws SQLException {
@@ -319,7 +321,7 @@ public class BoardDaoImpl implements BoardDao {
 		} finally {
 			DBUtil.getInstance().close(pstmt, conn);
 		}
-	}
+	}	
 
 
 }

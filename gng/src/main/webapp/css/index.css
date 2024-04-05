@@ -2,9 +2,7 @@
 
 body,
 html {
-  margin: 0;
   height: 100%;
-  background-color: 
 }
 
 .GnG_logo {
@@ -49,27 +47,4 @@ html {
 
 #login_user_name span {
 	color: #4577fa;
-	font-weight: bold;
-}
-
-#board-list {
-	margin-top: 50px;
-}
-
-#board-content-container {
-	margin-top: 40px;
-}
-
-.comment_register_container {
-	margin-top : 30px;
-	display: flex;
-	justify-content: center;
-}
-
-.comment_register {
-	width: 900px;
-}
-
-#comment_regist_content {
-	width: 500px;
 }

@@ -32,6 +32,35 @@ html {
   background-image: url(../image/sea.jpg);
   background-repeat: no-repeat;
   opacity: 100%;
+  position: relative;
+}
+
+.main-slogan{
+	margin-right: 20px;
+	color: white;
+	position: absolute;
+	top:400px;
+	right: 20px;
+	
+	
+	width:1100px;
+	min-height: 17%;
+	max-height: 17%;
+	bottom: 25px;
+	background-color: rgba(196, 196, 196, 0.2);
+	border-radius: 7px;
+	backdrop-filter: blur(10px);
+
+	
+}
+.main-slogan > h4{
+	padding-top: 10px;
+	padding-left: 250px;
+}
+
+.main-slogan > .author{
+	padding-top: 10px;
+	padding-left: 500px;
 }
 
 .GnG_logo img {

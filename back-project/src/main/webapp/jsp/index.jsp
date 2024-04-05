@@ -17,7 +17,14 @@
 </head>
 <body>
 	<%@ include file="/jsp/nav.jsp"%>
-	<main class="main"></main>
+	<main class="main">
+		<div class="main-slogan">
+			<h4>여행의 묘미는 완벽한 지도 덕분에 매사가 계획대로 되는 데 있는 것이 아니라,</h4>
+			<h4>거친 약도 때문에 길을 잃고 헤매는 동안 생기는 뜻밖의 만남에 있다고 믿는다.</h4>
+			<h6 class="author">- 한비야  /  <바람의 딸, 우리 땅에 서다> 中</h6>
+		</div>
+	</main>
+	ncmd
 	<footer></footer>
 </body>
 </html>

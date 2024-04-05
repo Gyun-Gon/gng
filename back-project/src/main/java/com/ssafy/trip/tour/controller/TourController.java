@@ -2,6 +2,7 @@ package com.ssafy.trip.tour.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -82,8 +83,47 @@ public class TourController extends HttpServlet {
 		try {
 			List<AttractionInfo> list = attractionInfoService.selectRecommenCourse(search);
 
+			List<AttractionInfo> resList = new ArrayList<>();
+
+			if (list.size() > 0) {
+				for (AttractionInfo info : list) {
+					System.out.println(info);
+				}
+
+				AttractionInfo currentInfo = list.get(0);
+				resList.add(currentInfo);
+
+				while (resList.size() < list.size()) {
+					double minDistance = Double.MAX_VALUE;
+					AttractionInfo nextInfo = null;
+
+					for (AttractionInfo info : list) {
+						if (!resList.contains(info)) {
+							double distance = distance(currentInfo, info);
+							if (distance < minDistance) {
+								minDistance = distance;
+								nextInfo = info;
+							}
+						}
+					}
+
+					resList.add(nextInfo);
+					currentInfo = nextInfo;
+				}
+				System.out.println();
+				for (AttractionInfo info : resList) {
+					System.out.println(info);
+				}
+			} else {
+				AttractionInfo tmp = new AttractionInfo();
+				tmp.setLatitude(mapxLat);
+				tmp.setLongitude(mapyLon);
+				resList.add(tmp);
+			}
+			
+			
 			JSONArray recommendList = new JSONArray();
-			for (AttractionInfo info : list) {
+			for (AttractionInfo info : resList) {
 				JSONObject attractionInfo = new JSONObject();
 				attractionInfo.put("contentId", info.getContentId());
 				attractionInfo.put("contentTypeId", info.getContentTypeId());
@@ -192,6 +232,12 @@ public class TourController extends HttpServlet {
 
 	private void index(HttpServletRequest req, HttpServletResponse resp) throws Exception {
 		req.getRequestDispatcher("/jsp/index.jsp").forward(req, resp);
+	}
+
+	private double distance(AttractionInfo a, AttractionInfo b) {
+		double latDiff = a.getLatitude() - b.getLatitude();
+		double lonDiff = a.getLongitude() - b.getLongitude();
+		return Math.sqrt(latDiff * latDiff + lonDiff * lonDiff);
 	}
 
 }

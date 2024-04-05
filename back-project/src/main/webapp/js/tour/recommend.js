@@ -16,36 +16,8 @@ let positions = [];
 let overlays = [];
 let markers = [];
 let map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
-
 let exampleModal = document.getElementById('exampleModal')
 
-/*
-exampleModal.addEventListener('show.bs.modal', function(event) {
-	const gridItems = document.querySelectorAll(".grid-item");
-
-
-	setTimeout(function() {
-		map.relayout();
-		map.setCenter(new kakao.maps.LatLng(36.35537731926109, 127.29847072801634));
-		map.setLevel(5, { animate: true });
-
-	}, 200);
-
-	
-	gridItems.forEach(function(item) {
-		item.addEventListener("click", function() {
-			// 클릭된 요소의 data-id 값을 가져옵니다.
-			const itemId = item.getAttribute("data-id");
-
-			// 가져온 data-id 값을 출력합니다.
-			console.log("Clicked Item ID:", itemId);
-
-			// 여기서 가져온 값을 다른 곳에 전달하거나 처리할 수 있습니다.
-			findSector(itemId);
-		});
-	});
-})
-*/
 exampleModal.addEventListener('show.bs.modal', function(event) {
 	const gridItems = document.querySelectorAll(".grid-item");
 	clearMarkersAndOveray();
@@ -69,10 +41,9 @@ function handleGridItemClick(event) {
 	findSector(itemId);
 }
 
-
-
-
 function findSector(itemId) {
+	bounds = new kakao.maps.LatLngBounds();
+	distanceOverlay = new kakao.maps.CustomOverlay();
 	console.log(itemId)
 	let url = "http://localhost:8080/gng/tour?action=searchSector&sectorCode=" + itemId;
 
@@ -97,14 +68,18 @@ function findSector(itemId) {
 
 			setTimeout(function() {
 				map.setCenter(new kakao.maps.LatLng(d.item.latitude, d.item.longitude));
-				map.setLevel(3);
-				map.relayout();
 				map.setLevel(4);
 				map.relayout();
+				relayout();
 
-			}, 130);
+			}, 300);
 		})
 }
+
+var drawLine;
+var distanceOverlay;
+var dots = {};
+
 function makeWay(items) {
 	clearMarkersAndOveray();
 
@@ -140,7 +115,7 @@ function makeWay(items) {
 		}
 		lineLine.setPath(linePath);
 
-		let drawLine = new kakao.maps.Polyline({
+		drawLine = new kakao.maps.Polyline({
 			map: map,
 			path: linePath,
 			strokeWeight: 2,
@@ -151,28 +126,19 @@ function makeWay(items) {
 		displayCircleDot(positions[i].latlng, distance, positions[i].content);
 	}
 
-
-
-	var bounds = new kakao.maps.LatLngBounds(); // LatLngBounds 객체 생성
-
 	// 모든 마커의 위치를 LatLngBounds 객체에 추가
 	items.forEach(function(item) {
 		bounds.extend(new kakao.maps.LatLng(item.latitude, item.longitude));
 	});
 
-	// 직접 지도의 중심점을 설정하고 축척을 조정합니다.
-	var center = bounds.getCenter();
-	var level = calculateLevel(bounds); // 적절한 축척 계산하는 함수 사용
-
 	// 지도의 중심점과 축척을 설정합니다.
-	map.setCenter(center);
-	map.setLevel(6);
+	//map.setCenter(center);
+	//map.setLevel(6);
 }
-let distanceOverlay = new kakao.maps.CustomOverlay(
-	{
-		yAnchor: 1,
-		zInget: 2
-	})
+
+var bounds = new kakao.maps.LatLngBounds(); // LatLngBounds 객체 생성
+
+
 function displayCircleDot(position, distance, title) {
 
 	if (distance > 0) {
@@ -186,21 +152,33 @@ function displayCircleDot(position, distance, title) {
 			})
 		distanceOverlay.setMap(map);
 	}
+	dots.push({ line: drawLine, distance: distanceOverlay });
 }
 
 function clearMarkersAndOveray() {
-	if (distanceOverlay) {
-		distanceOverlay.setMap(null);
-		distanceOverlay = null;
-	}
 	for (let i = 0; i < markers.length; i++) {
 		markers[i].setMap(null);
 	}
+	var i;
+
+	for (i = 0; i < dots.length; i++) {
+		if (dots[i].line) {
+			dots[i].line.setMap(null);
+		}
+
+		if (dots[i].distance) {
+			dots[i].distance.setMap(null);
+		}
+	}
+
+	dots = [];
 }
 
-
 function relayout() {
-	console.log(11111);
+	setBounds()
 	map.relayout();
 }
 
+function setBounds() {
+	map.setBounds(bounds)
+}

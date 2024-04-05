@@ -29,7 +29,7 @@
         </div>
         <div class="mypage_form_input">
           <label for="userPassword">비밀번호</label>
-          <input type="password" id="userPassword" name="userPassword" value="${sessionScope.resultMember.userPassword}" />
+          <input type="password" id="userPassword" name="userPassword" />
         </div>
         <div class="mypage_form_input">
           <label for="userEmail">이메일</label>

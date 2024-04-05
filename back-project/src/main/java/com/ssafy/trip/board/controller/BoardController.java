@@ -10,6 +10,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.ssafy.trip.board.model.Board;
+import com.ssafy.trip.board.model.Comment;
 import com.ssafy.trip.board.model.service.BoardService;
 import com.ssafy.trip.board.model.service.BoardServiceImpl;
 import com.ssafy.trip.member.model.Member;
@@ -73,10 +74,7 @@ public class BoardController extends HttpServlet{
 				editForm(req,resp);
 				break;
 				
-			}		
-			
-			
-			
+			}				
 			
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -309,14 +307,10 @@ public class BoardController extends HttpServlet{
 			}
 		} else {
 			req.getRequestDispatcher("/jsp/member/signInForm.jsp").forward(req, resp);
-		}
-		
-		
-		
+		}	
 		
 		
 	}
-	
 	
 	
 	

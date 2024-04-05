@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.board.model.Badword;
 import com.ssafy.trip.board.model.Board;
 import com.ssafy.trip.board.model.Comment;
 
@@ -15,6 +16,7 @@ public interface BoardDao {
 	
 	// 전제조회
 	List<Board> selectBoard(Map<String,Object> map) throws SQLException;
+	
 	// 상세조회
 	Board selectBoardByBoardId(int boardId) throws SQLException;
 	
@@ -30,7 +32,7 @@ public interface BoardDao {
 	// 전체 글 수 가져오기
 	int getTotalBoardCount(Map<String,Object> map) throws SQLException;
 	
-	// 내가 쓴 글 조회(userId) 상세 목록조회 -> 나중에
+	// 내가 쓴 글 조회(userId) 상세 목록조회 -> 나중에\
 	
 	
 	// 댓글

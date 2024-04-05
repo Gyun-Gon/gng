@@ -3,6 +3,7 @@ package com.ssafy.trip.board.model.service;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.trip.board.model.Badword;
 import com.ssafy.trip.board.model.Board;
 import com.ssafy.trip.board.model.Comment;
 import com.ssafy.trip.board.model.dao.BoardDao;
@@ -96,5 +97,6 @@ public class BoardServiceImpl implements BoardService {
 		int removeResult = boardDao.deleteComment(comment.getCommentId());
 		return getDetailComment(comment.getBoardId());
 	}
+
 
 }

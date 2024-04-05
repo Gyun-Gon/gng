@@ -161,7 +161,6 @@ public class MemberController extends HttpServlet {
 	        int editResult = memberService.editMember(myMember);
 	        System.out.println("editResult : " + editResult);
 	        if (editResult > 0) {
-	        	session.setAttribute("resultMember", myMember);
 	        	result.put("result", true); // 삭제 결과를 JSON 객체에 "result" 키값으로 담아서 보낼거임. 
 	        } else {
 	        	result.put("result", false); // 삭제 결과를 JSON 객체에 "result" 키값으로 담아서 보낼거임. 	        	
